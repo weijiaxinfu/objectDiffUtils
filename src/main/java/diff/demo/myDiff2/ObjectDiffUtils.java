@@ -7,8 +7,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.lang.String;
 import java.lang.Object;
-
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ObjectDiffUtils {
@@ -130,8 +130,8 @@ public class ObjectDiffUtils {
         StringBuilder res = new StringBuilder();
         diffNodeTree(beforeNode, afterNode, res);
 
-        JSONObject json=new JSONObject();
-        diffNodeTree2(beforeNode,afterNode,json);
+        Map<String,Object> map=new HashMap<>();
+        diffNodeTree2(beforeNode,afterNode,map);
 
         if (showChanges) {
             res.append("All Change :" + JSON.toJSONString(before) + " -> " + JSON.toJSONString(after) + " ; ");
@@ -166,7 +166,7 @@ public class ObjectDiffUtils {
     }
 
     /*优化diff返回格式*/
-    public static void diffNodeTree2(Node<Object> beforeNode, Node<Object> afterNode, JSONObject json) {
+    public static void diffNodeTree2(Node<Object> beforeNode, Node<Object> afterNode, Map<String,Object> map) {
         if ((beforeNode != null && beforeNode.getChildNodes() != null)
                 && (afterNode != null && afterNode.getChildNodes() != null)) {
             for (int i = 0, j = 0; i < beforeNode.getChildNodes().size() && j < afterNode.getChildNodes().size(); i++, j++) {
@@ -175,14 +175,14 @@ public class ObjectDiffUtils {
 
                 if ((childBefore.isFlag() == true && childAfter.isFlag() == true)
                         && (childBefore.getChildNodes() != null && childAfter.getChildNodes() != null)) {
-                    diffNodeTree2(childBefore, childAfter, json);
+                    diffNodeTree2(childBefore, childAfter, map);
                 } else if (childBefore.isFlag() != childAfter.isFlag()
                         || (childBefore.isFlag() == false && childAfter.isFlag() == false)
                         || childBefore.getChildNodes() == null
                         || childAfter.getChildNodes() == null) {
 
                     if (!(childBefore.getNodeEntity() == null ? childAfter.getNodeEntity() == null : childBefore.getNodeEntity().equals(childAfter.getNodeEntity()))) {
-                        buildObject(json,childBefore,childAfter);//构建Object
+                        buildObject(map,childBefore,childAfter);//构建Object
                         //res.append(childBefore.getName() + ": " + JSON.toJSONString(childBefore.getNodeEntity()) + " -> " + JSON.toJSONString(childAfter.getNodeEntity()) + " ; ");
                     }
                 }
@@ -191,8 +191,8 @@ public class ObjectDiffUtils {
         }
     }
 
-    private static void buildObject(JSONObject json, Node<Object> childBefore, Node<Object> childAfter) {
-        String[]  properties=childBefore.getName().split(".");
+    private static void buildObject(Map<String,Object> map, Node<Object> childBefore, Node<Object> childAfter) {
+
     }
 
 
