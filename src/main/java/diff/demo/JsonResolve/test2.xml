@@ -1,0 +1,18 @@
+<params>
+    <param>
+        <key>$.participantId</key>
+        <type>java.lang.Long</type>
+    </param>
+    <param>
+        <key>$.positionName</key>
+        <type>java.lang.String</type>
+    </param>
+    <param>
+        <key>$.name</key>
+        <type>java.lang.String</type>
+    </param>
+
+
+</params>
+
+

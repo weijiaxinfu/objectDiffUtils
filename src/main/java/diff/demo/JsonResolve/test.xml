@@ -1,0 +1,13 @@
+<params>
+    <param>
+        <key>$.store.book</key>
+        <type>java.util.ArrayList</type>
+    </param>
+    <param>
+        <key>$.store.number</key>
+        <type>java.lang.Integer</type>
+    </param>
+
+</params>
+
+
